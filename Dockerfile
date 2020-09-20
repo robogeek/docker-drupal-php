@@ -36,8 +36,11 @@ RUN docker-php-ext-install mysqli pdo pdo_mysql
 # plop it in /usr/bin and make it executable.
 
 RUN wget https://github.com/drush-ops/drush/releases/download/8.4.1/drush.phar \
-         --output-document=/usr/bin/drush && \
-    chmod +x /usr/bin/drush
+         --output-document=/usr/local/bin/drush && \
+    chmod +x /usr/local/bin/drush
+
+COPY apache2-reload /usr/local/bin
+RUN chmod +x /usr/local/bin/apache2-reload
 
 # This installs some of the packages used by the original Dockerfile.
 # The lua-rex-pcre package is installed because the original Dockerfile
@@ -59,7 +62,8 @@ RUN apt-get install -y \
         imagemagick \
         mariadb-client \
         autoconf \
-        libtool 
+        libtool
+        
 RUN pecl install xdebug \
     && echo "zend_extension=$(find /usr/local/lib/php/extensions/ -name xdebug.so)" > /usr/local/etc/php/conf.d/xdebug.ini \
     && echo "xdebug.remote_enable=on" >> /usr/local/etc/php/conf.d/xdebug.ini \
@@ -70,6 +74,12 @@ RUN pecl install xdebug \
 # that can be enabled but they didn't seem required.
 RUN a2enmod rewrite
 RUN a2enmod ssl
+
+# Install some useful tools
+RUN apt-get install -y net-tools procps vim
+
+# Override the work directory
+WORKDIR /var/www
 
 # These are packages installed in the original Dockerfile that is 
 # running Alpine Linux.  I was not able to find the equivalent packages

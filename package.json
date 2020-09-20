@@ -1,7 +1,7 @@
 {
     "name": "drupal-php",
     "config": {
-        "version": "1",
+        "version": "2",
         "php_version": "7.1",
         "user": "SET-USER using npm config set drupal-php:user YOUR-DOCKER-USER"
     },

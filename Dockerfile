@@ -31,11 +31,15 @@ RUN docker-php-ext-install mysqli pdo pdo_mysql
 
 # To support Drupal, install Drush.
 # This is targeting Drupal 7, hence it is using Drush 8.4.1.
-# See the info at: https://www.drush.org/install/
+# See the info at: https://docs.drush.org/en/8.x/install/
+#
+# According to the drush.org compatibility chart, we use
+# Drush 8.x with Drupal 7.x.  Drush 8.x is there but unsupported.
+#
 # The `drush.phar` file is directly executable, so all we do is
 # plop it in /usr/bin and make it executable.
 
-RUN wget https://github.com/drush-ops/drush/releases/download/8.4.1/drush.phar \
+RUN wget https://github.com/drush-ops/drush/releases/download/8.4.12/drush.phar \
          --output-document=/usr/local/bin/drush && \
     chmod +x /usr/local/bin/drush
 
@@ -58,11 +62,13 @@ RUN apt-get install -y \
         tar \
         patch \
         perl \
-        lua-rex-pcre lua-rex-pcre-dev \
         imagemagick \
         mariadb-client \
         autoconf \
         libtool
+
+
+        # lua-rex-pcre lua-rex-pcre-dev 
         
 RUN pecl install xdebug \
     && echo "zend_extension=$(find /usr/local/lib/php/extensions/ -name xdebug.so)" > /usr/local/etc/php/conf.d/xdebug.ini \

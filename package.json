@@ -1,16 +1,16 @@
 {
     "name": "drupal-php",
     "config": {
-        "version": "2",
-        "php_version": "7.1",
-        "user": "SET-USER using npm config set drupal-php:user YOUR-DOCKER-USER"
+        "version": "3",
+        "php_version": "8.2",
+        "user": "robogeek"
     },
     "scripts": {
         "login": "docker --context default login -u ${npm_package_config_user}",
-        "build": "docker --context default build -t drupal-php-7.1:latest -t drupal-php-7.1:${npm_package_config_version} --build-arg PHP_VERSION=${npm_package_config_php_version} .",
+        "build": "docker --context default build -t drupal-php-8.2:latest -t drupal-php-8.2:${npm_package_config_version} --build-arg PHP_VERSION=${npm_package_config_php_version} .",
         "tag": "npm run tag:latest && npm run tag:version",
-        "tag:latest": "docker --context default tag drupal-php-7.1 ${npm_package_config_user}/drupal-php-7.1:latest",
-        "tag:version": "docker --context default tag drupal-php-7.1 ${npm_package_config_user}/drupal-php-7.1:${npm_package_config_version}",
-        "push": "docker --context default push ${npm_package_config_user}/drupal-php-7.1"
+        "tag:latest": "docker --context default tag drupal-php-8.2 ${npm_package_config_user}/drupal-php-8.2:latest",
+        "tag:version": "docker --context default tag drupal-php-8.2 ${npm_package_config_user}/drupal-php-8.2:${npm_package_config_version}",
+        "push": "docker --context default push ${npm_package_config_user}/drupal-php-8.2"
     }
 }

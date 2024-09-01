@@ -75,6 +75,9 @@ RUN pecl install xdebug \
     && echo "xdebug.remote_enable=on" >> /usr/local/etc/php/conf.d/xdebug.ini \
     && echo "xdebug.remote_autostart=off" >> /usr/local/etc/php/conf.d/xdebug.ini
 
+RUN pecl install memcache && docker-php-ext-enable memcache
+RUN pecl install uploadprogress && docker-php-ext-enable uploadprogress
+
 # For some reason the php:apache module doesn't enable these Apache modules
 # Wouldn't they be universally required?  There are some additional modules
 # that can be enabled but they didn't seem required.
